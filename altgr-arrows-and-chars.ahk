@@ -79,4 +79,17 @@ o:: Send {End}
 q:: Send {@}
 ':: Send {\}
 
+; Numerical keyboard
+; Use x-v-r-w quadrant as a numerical keyboard with altGr
+z:: Send {0}
+x:: Send {1}
+c:: Send {2}
+v:: Send {3}
+s:: Send {4}
+d:: Send {5}
+f:: Send {6}
+w:: Send {7}
+e:: Send {8}
+r:: Send {9}
+
 #If
