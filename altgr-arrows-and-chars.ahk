@@ -77,5 +77,6 @@ o:: Send {End}
 }:: Send {``}
 +:: Send {~}
 q:: Send {@}
+':: Send {\}
 
 #If
