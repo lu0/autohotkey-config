@@ -26,9 +26,9 @@ Setup windows shortcuts from the startup folder to each compiled script.
 
 1. Compile each `*.ahk` file of the root folder using the context menu of the file explorer.
 2. Compile `desktop_switcher.ahk` of the `workspaces` folder.
-3. Paste the following path in **a second** file explorer.
+3. Open the following path in **another** file explorer.
 ```sh
 %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 ```
-4. Paste every `*.exe` file (compiled script) in the startup folder.
+4. Paste every `*.exe` file (scripts compiled in step `2`) in the startup folder.
 5. Reboot
