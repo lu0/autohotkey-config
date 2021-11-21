@@ -1,4 +1,5 @@
 ﻿#NoTrayIcon
+#SingleInstance Force
 
 ; Keybindings I use on Linux to close, minimize, maximize and snap the active window.
 ; Must enable "Zone index" on FancyZones (Windows Powertoys) and use a gap greater than 0.

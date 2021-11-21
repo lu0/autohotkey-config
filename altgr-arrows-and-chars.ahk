@@ -1,4 +1,5 @@
 ﻿#NoTrayIcon
+#SingleInstance Force
 
 ; This script maps some keyboard combinations (latam layout)
 ; preceded by AltGr to combinations I use on Linux:

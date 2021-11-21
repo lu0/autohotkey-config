@@ -1,4 +1,5 @@
 ﻿#NoTrayIcon
+#SingleInstance Force
 #NoEnv
 
 ; This script shows the Shutdown Dialog when pressing Super + P,

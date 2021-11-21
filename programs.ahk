@@ -1,4 +1,5 @@
 #NoTrayIcon
+#SingleInstance Force
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
 
