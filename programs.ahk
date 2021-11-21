@@ -1,4 +1,4 @@
-﻿#NoTrayIcon
+#NoTrayIcon
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
 
@@ -40,5 +40,5 @@ return
 ; Microsoft Teams
 ; ctrl + alt + shift + m
 ^!+m::
-    Run C:\Users\Lucero_Alvarado\AppData\Local\Microsoft\Teams\Update.exe --processStart "Teams.exe"
+    Run C:\Users\%A_UserName%\AppData\Local\Microsoft\Teams\Update.exe --processStart "Teams.exe"
 return
