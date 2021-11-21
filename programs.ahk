@@ -1,4 +1,4 @@
-#NoTrayIcon
+﻿#NoTrayIcon
 #SingleInstance Force
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
@@ -31,10 +31,10 @@ return
 return
 
 
-; Outlook Mail
+; Thunderbird Mail
 ; ctrl + alt + m
 ^!m::
-    Run outlook
+    Run C:\Program Files\Mozilla Thunderbird\thunderbird.exe
 return
 
 
