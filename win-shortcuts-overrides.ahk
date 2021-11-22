@@ -4,41 +4,58 @@
 ; Override conflicting keybindings on Windows 10
 
 ; super + a
-; Focus navigation bar
+; I use it on vivaldi
 #a::
    Send {F6}
    return
 
 ; super + q
-; F2 is usually used for quick commands
+; I use it on vivaldi
 #q::
     Send {F2}
     return
 
-; map alt + super + a
+; map shift + super + a
 ; to  ctrl + shift + PgUp
-; To move a tab backwards
+; I use it on vscode and vivaldi
 +#a::
     Send ^+{PgUp}
     return
 
-; map alt + super + a
+; map shift + super + a
 ; to  ctrl + shift + PgDn
-; To move a tab forward
+; I use it on vscode and vivaldi
 +#s::
     Send ^+{PgDn}
     return
 
-
 ; map ctrl + alt + tab
 ; to  ctrl + alt + ;
+; I use it on vscode and vivaldi
 ^!tab::
     Send ^!`´
     return
 
 ; Override Ctrl + (emulated)Esc
-;       to Ctrl + 1
-; Used in my vscode settings to toggle the sidebar
+;     with Ctrl + 1
+; I use it on vscode
 ^CapsLock::
     Send ^{1}
+    return
+
+; Disable the "office" shortcut
+; https://www.autohotkey.com/boards/viewtopic.php?t=65573
+#^!Shift::
+#^+Alt::
+#!+Ctrl::
+^!+LWin::
+^!+RWin::
+    Send {Blind}{vk07}
+    return
+
+; Override Super + Shift + Space
+;       with ctrl+shift+alt+w
+; I use it on vscode
++#Space::
+    Send ^+!{w}
     return
