@@ -1,4 +1,4 @@
-﻿#NoTrayIcon
+#NoTrayIcon
 #SingleInstance Force
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
@@ -13,7 +13,8 @@ return
 ; WSL (Terminal)
 ; ctrl + alt + t
 ^!t::
-    Run wsl
+    ; Open new terminal
+    Run C:\Users\%A_UserName%\AppData\Local\Microsoft\WindowsApps\wt.exe
 return
 
 
