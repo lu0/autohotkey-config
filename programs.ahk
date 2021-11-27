@@ -1,4 +1,4 @@
-#NoTrayIcon
+﻿#NoTrayIcon
 #SingleInstance Force
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
@@ -9,13 +9,6 @@
     Run files
 return
 
-
-; WSL (Terminal)
-; ctrl + alt + t
-^!t::
-    ; Open new terminal
-    Run C:\Users\%A_UserName%\AppData\Local\Microsoft\WindowsApps\wt.exe
-return
 
 
 ; Vivaldi (web browser)
