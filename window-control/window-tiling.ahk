@@ -116,7 +116,7 @@ LAlt & d::
         return
     }
 
-    if (not GetKeyState("Shift") and not GetKeyState("LWin")) {
+    if (not GetKeyState("Shift") and not GetKeyState("LWin") and not GetKeyState("LCtrl")) {
         ; Tile Left on current monitor
         ; alt + a
         MonitorGetWorkAreaRelPos(monitorX1, monitorX2, monitorY1, monitorY2, monitorWidth, monitorHeight, true)
@@ -126,6 +126,10 @@ LAlt & d::
         ; super + alt + d
         MonitorGetWorkAreaRelPos(monitorX1, monitorX2, monitorY1, monitorY2, monitorWidth, monitorHeight, false)
         WinGetTileMaximizedPosFromMonitor("max", tileGap, monitorX1, monitorY1, monitorWidth, monitorHeight, newWindowX, newWindowY, newWindowWidth, newWindowHeight)
+    } else if GetKeyState("LCtrl") {
+        ; Ctrl + Alt + d
+        Send ^!{d}
+        return
     } else {
         ; Alt + Shift + d
         Send !+{d}
