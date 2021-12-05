@@ -4,3 +4,6 @@
 [submodule "toggle-win-terminal"]
 	path = toggle-win-terminal
 	url = https://gist.github.com/lu0/8f39b9193d08a74f9c51b98dff6bdc03
+[submodule "gdip-lib"]
+	path = gdip-lib
+	url = https://github.com/mmikeww/AHKv2-Gdip
