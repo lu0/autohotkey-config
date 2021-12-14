@@ -53,9 +53,9 @@
     Send {Blind}{vk07}
     return
 
-; Override Super + Shift + Space
+; Override Alt + Shift + Space
 ;       with ctrl+shift+alt+w
 ; I use it on vscode
-+#Space::
++!Space::
     Send ^+!{w}
     return
