@@ -73,6 +73,10 @@ o:: Send {End}
 <:: Send {(}
 >:: Send {)}
 
+
+; Map a to ᵃ (:P)
+a:: Send {ᵃ}
+
 ; Restore special characters I use frequently
 {:: Send {^}
 }:: Send {``}
