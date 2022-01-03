@@ -3,10 +3,10 @@
 
 ; This scripts maps ctrl + alt + <letter> to the programs I use frequently.
 
-; Files (File Manager)
+; Windows' File Explorer
 ; ctrl + alt + f
 ^!f::
-    Run files
+    Run explorer
 return
 
 
