@@ -50,31 +50,35 @@ cycleWindows(direction) {
 			}
 	}
 
-    hwndFirst := Windows[Screen][1]
-    Last := Windows[Screen].MaxIndex()
-    hwndLast := Windows[Screen][Last]
+    totalWindowsOnCurrentMonitor := Windows[Screen].Length()
+    
+    if (totalWindowsOnCurrentMonitor > 1) {
+        hwndFirst := Windows[Screen][1]
+        Last := Windows[Screen].MaxIndex()
+        hwndLast := Windows[Screen][Last]
 
-    if (direction = "forward") {
-        DllCall("SetWindowPos", "ptr"
-            , hwndFirst, "ptr", 1, "int", 0, "int", 0, "int", 0, "int", 0
-            , "uint", 0x13) ; NOSIZE|NOMOVE|NOACTIVATE (0x1|0x2|0x10)
-        nextWindow := % "ahk_id " Windows[Screen][2]
-    } else {
-        ; Backward
-        DllCall("SetWindowPos", "ptr"
-            , hwndLast, "ptr", 0, "int", 0, "int", 0, "int", 0, "int", 0
-            , "uint", 0x13) ; NOSIZE|NOMOVE|NOACTIVATE (0x1|0x2|0x10)
-        nextWindow := % "ahk_id " hwndLast
+        if (direction = "forward") {
+            DllCall("SetWindowPos", "ptr"
+                , hwndFirst, "ptr", 1, "int", 0, "int", 0, "int", 0, "int", 0
+                , "uint", 0x13) ; NOSIZE|NOMOVE|NOACTIVATE (0x1|0x2|0x10)
+            nextWindow := % "ahk_id " Windows[Screen][2]
+        } else if (direction = "backward") {
+            ; Backward
+            DllCall("SetWindowPos", "ptr"
+                , hwndLast, "ptr", 0, "int", 0, "int", 0, "int", 0, "int", 0
+                , "uint", 0x13) ; NOSIZE|NOMOVE|NOACTIVATE (0x1|0x2|0x10)
+            nextWindow := % "ahk_id " hwndLast
+        }
+
+        ; Center mouse on window to avoid focus on other windows
+        ; when the system is configured to focus on mouse hover.
+        WinGetPos, x, y, w, h, % nextWindow
+        centerMouseOnWindow(x, y, w, h)
+
+        ; Raise the window
+        WinActivate, % nextWindow
     }
 
-    ; Center mouse on window to avoid focus on other windows
-    ; when the system is configured to focus on mouse hover.
-
-    WinGetPos, x, y, w, h, % nextWindow
-    centerMouseOnWindow(x, y, w, h)
-
-    ; Raise the window
-    WinActivate, % nextWindow
 }
 
 getIsWindowValid(hwnd) {
