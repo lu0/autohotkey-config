@@ -131,8 +131,7 @@ saveScreenshot(screenDim, toClipboard=true) {
 getFileName() {
     global IMDIR
     mmdd_date := A_MM A_DD
-    date := --mmdd_date
-    yymmdd_date := SubStr(A_YYYY,-1) date
+    yymmdd_date := SubStr(A_YYYY,-1) mmdd_date
     hhmmss_time := A_Hour A_Min A_Sec
     filename := "ss-" yymmdd_date "-" hhmmss_time
     return IMDIR filename ".png"
