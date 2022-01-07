@@ -18,10 +18,15 @@
     new_title := old_title . move_indicator
     WinSetTitle , A, , %new_title%
 
-    ; Get the position of the titlebar from the window
+    ; Get position of the title bar
     WinGetPos , win_x, win_y, win_w, win_h, A
     titlebar_x_middle := win_x + win_w / 2
     titlebar_y := win_y + 10
+
+    ; Offset to avoid grabbing tabs when using Vivaldi (web browser).
+    substring := "Vivaldi"
+    IfInString, new_title, %substring%
+        titlebar_y -= 5
 
     ; Move the mouse to the title bar
     WinActivate , Program Manager
