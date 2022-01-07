@@ -62,7 +62,7 @@ cycleWindows(direction) {
                 , hwndFirst, "ptr", 1, "int", 0, "int", 0, "int", 0, "int", 0
                 , "uint", 0x13) ; NOSIZE|NOMOVE|NOACTIVATE (0x1|0x2|0x10)
             nextWindow := % "ahk_id " Windows[Screen][2]
-        } else if (direction = "backward") {
+        } else {
             ; Backward
             DllCall("SetWindowPos", "ptr"
                 , hwndLast, "ptr", 0, "int", 0, "int", 0, "int", 0, "int", 0
@@ -84,9 +84,14 @@ cycleWindows(direction) {
 getIsWindowValid(hwnd) {
     isWindowValid := true
     WinGetTitle, winTitle, % "ahk_id " hwnd
-    If (winTitle = "" or winTitle = "Program Manager")
+    If (winTitle = "" or winTitle = "Program Manager" or !hasTaskbar(hwnd))
         isWindowValid := false
     return isWindowValid
+}
+
+hasTaskbar(hwnd) {
+    WinGet, Style, Style, % "ahk_id " hwnd
+    return Style & 0xC00000
 }
 
 centerMouseOnWindow(x, y, w, h) {
