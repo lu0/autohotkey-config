@@ -45,7 +45,7 @@ These scripts can run at startup by copying or linking them to the startup folde
    - or by pressing keys `WIN` + `R` and running `shell:startup`
 
 1. Create a **shortcut** for each `*.ahk` script by selecting the `*.ahk` files and then,
-    **while pressiong `Ctrl` + `Shift`**, dragging them from the repository folder to the startup folder.
+    **while pressing `Ctrl` + `Shift`**, dragging them from the repository folder to the startup folder.
     - For all `*.ahk` scripts in folders `key-remappings`, `miscellaneous`, `toggle-win-terminal`, and `window-control`.
     - For only the script `desktop_switcher.ahk`, contained in the `workspaces` folder.
 
