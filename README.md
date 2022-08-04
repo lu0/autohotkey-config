@@ -37,9 +37,14 @@ These scripts can run at startup by copying or linking them to the startup folde
 1. Create a shortcut for each `*.ahk` script using the context menu of the file explorer
     - For all `*.ahk` scripts in folders `key-remappings`, `miscellaneous`, `toggle-win-terminal`, and `window-control`.
     - For `desktop_switcher.ahk`, contained in the `workspaces` folder.
-1. Open the startup folder in **another** explorer:
-```cmd
-explorer.exe %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
-```
+1. Open the startup folder in **another** explorer
+
+   - either by running the following command in CMD:
+    ```cmd
+    explorer.exe %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
+    ```
+
+   - or by pressing keys `WIN` + `R` and running `shell:startup`.
+
 1. Move every shortcut to the startup folder.
-2. Reboot
+1. Reboot
