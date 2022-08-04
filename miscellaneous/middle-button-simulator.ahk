@@ -5,7 +5,7 @@
 ; pressing the Right Button of the touchpad for more than 200 ms.
 ;
 ; This is specially useful when a pointing stick/trackpoint is present,
-; but but not middle button on the touchpad.
+; but not a middle button on the touchpad.
 
 $RButton::
     ; Wait up to 200 ms to release the Right Button

@@ -1,7 +1,7 @@
 #NoTrayIcon
 #SingleInstance Force
-#Include %A_ScriptDir%\gdip-lib\Gdip_All.ahk
-#Include %A_ScriptDir%\workspaces\utils.ahk
+#Include %A_ScriptDir%\..\gdip-lib\Gdip_All.ahk
+#Include %A_ScriptDir%\..\workspaces\utils.ahk
 SetWorkingDir %A_ScriptDir%
 CoordMode, Mouse, Screen
 
