@@ -1,6 +1,6 @@
 # AutoHotKey scripts and configuration
 
-AutoHotKey scripts I use to mimic my Linux Keybindings and Workspaces on Windows 10.
+AutoHotKey scripts I use to mimic my Linux Keybindings and Workspaces on Windows 10/11.
 
 
 ## Initial setup
