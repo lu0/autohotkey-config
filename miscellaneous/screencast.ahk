@@ -50,11 +50,10 @@ global errorSound := "C:\Windows\Media\Windows Critical Stop.wav"
 global startRecordingSound := "C:\Windows\Media\Speech On.wav"
 global stopRecordingSound := "C:\Windows\Media\Speech Off.wav"
 
-global obsDesktopOpenTimeoutSeconds := 3
-global obsStartRecordingTimeoutSeconds := 3
+global obsDesktopOpenTimeoutSeconds := 5
+global obsStartRecordingTimeoutSeconds := 5
 global obsStopRecordingTimeoutSeconds := 20
-global obsDesktopCloseTimeoutSeconds := 3
-global workaroundSecondsDelayToWaitForObsReadiness := 2
+global obsDesktopCloseTimeoutSeconds := 5
 
 HotKey, %scriptHotKeyTrigger%, OnScriptActivation
 return
@@ -88,11 +87,29 @@ openObsInMinimizedMode() {
 }
 
 startObsRecording() {
-    Sleep, workaroundSecondsDelayToWaitForObsReadiness * 1000
-        ; workaround in case OBS is not ready to accept hotkeys, will revisit
-        ; later. WinWait doesn't help even if detecting hidden windows.
-    Send, %obsHotkeyStartRecording%
-    waitProcessOpening(obsRecordingProcess, obsStartRecordingTimeoutSeconds)
+    ; Simply sending the hotkey and calling waitProcessOpening() for the 
+    ; recording process may not be enough, as OBS might not be immediately 
+    ; ready to accept hotkeys, even if the process is running. OBS's readiness
+    ; to accept hotkeys can vary depending on factors like system performance
+    ; and load
+    ;
+    ; To handle this, we use a loop to repeatedly send the hotkey command to
+    ; start the recording and then check if OBS has successfully started the
+    ; recording process. This loop is constrained by a timeout.
+
+    loopStartTime := A_TickCount
+    loopElapsedSeconds := 0
+    while (loopElapsedSeconds <= obsStartRecordingTimeoutSeconds) {
+        Send, %obsHotkeyStartRecording%
+        if isProcessRunning(obsRecordingProcess) {
+            OutputDebug, % "OBS accepted the hotkey after " .  loopElapsedSeconds . " seconds."
+            return
+        }
+        loopElapsedSeconds := (A_TickCount - loopStartTime) / 1000
+    }
+    OutputDebug, % "Recording process not found, timeout: " . obsStartRecordingTimeoutSeconds
+    closeObs()
+    failScript()
 }
 
 stopObsRecording() {
@@ -102,9 +119,11 @@ stopObsRecording() {
 }
 
 closeObs() {
-    activateHiddenWindow(obsWindowTitleRegex)
-    WinClose, ahk_exe %obsDesktopProcess%
-    waitProcessClosing(obsDesktopProcess, obsDesktopCloseTimeoutSeconds)
+    if isProcessRunning(obsDesktopProcess) {
+        activateHiddenWindow(obsWindowTitleRegex)
+        WinClose, ahk_exe %obsDesktopProcess%
+        waitProcessClosing(obsDesktopProcess, obsDesktopCloseTimeoutSeconds)
+    }
 }
 
 activateHiddenWindow(windowTitleRegex) {
@@ -129,9 +148,9 @@ waitProcessOpening(processName, timeoutSeconds) {
     isProcessOpen := ErrorLevel != 0
     if not isProcessOpen {
         OutputDebug, % "Process not found: " . processName . ", timeout: " . timeoutSeconds
-        SoundPlay, %errorSound%
-        resetScript()
+        failScript()
     }
+    return isProcessOpen
 }
 
 waitProcessClosing(processName, timeoutSeconds) {
@@ -139,16 +158,17 @@ waitProcessClosing(processName, timeoutSeconds) {
     isProcessClosed := ErrorLevel = 0
     if not isProcessClosed {
         OutputDebug, % "Error closing " . processName . ", timeout: " . timeoutSeconds
-        SoundPlay, %errorSound%
-        resetScript()
+        failScript()
     }
+    return isProcessClosed
 }
 
-resetScript() {
+failScript() {
     ; Since we enforce a single instance of the script, we can just reaload it
     ; to terminate the current execution and start the script all over again
     ; on failure. We use this instead of ExitApp to prevent the script from
     ; stopping listening to the hotkey that triggers it.
+    SoundPlay, %errorSound%
     Reload
 }
 
