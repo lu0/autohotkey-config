@@ -68,7 +68,6 @@ captureArea:
     gui +AlwaysOnTop +Border +LastFound +ToolWindow -caption
     WinSet, Transparent, 30
 
-    pToken := Gdip_Startup()
     MouseGetPos, mouseX0, mouseY0
     SetTimer, overlay, 1
 
