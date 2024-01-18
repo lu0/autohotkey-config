@@ -98,14 +98,32 @@ overlay:
     return
 
 setPlusCursor() {
-    ; Loop from https://www.autohotkey.com/board/topic/32608-changing-the-system-cursor/
-	IDC_CROSS := 32515
-	plusCursor := DllCall("LoadCursor", Uint, 0, Int, IDC_CROSS)
-	allCursors = 32512, 32513, 32514, 32515, 32516, 32640, 32641, 32642, 32643, 32644, 32645, 32646, 32648, 32649, 32650, 32651
-	Loop, Parse, allCursors, `,
-	{
-		DllCall("SetSystemCursor", Uint, plusCursor, Int, A_Loopfield)
-	}
+    ; Windows API and list of system cursors:
+    ; https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor
+
+    systemCursors := { OCR_APPSTARTING: 32650  ; Working in background
+                  , OCR_CROSS: 32515        ; Precision select
+                  , OCR_HAND: 32649         ; Link select
+                  , OCR_IBEAM: 32513        ; Text select
+                  , OCR_NO: 32648           ; Unavailable
+                  , OCR_NORMAL: 32512       ; Normal select
+                  , OCR_SIZEALL: 32646      ; Move
+                  , OCR_SIZENESW: 32643     ; Diagonal resize 2
+                  , OCR_SIZENS: 32645       ; Vertical resize
+                  , OCR_SIZENWSE: 32642     ; Diagonal resize 1
+                  , OCR_SIZEWE: 32644       ; Horizontal resize
+                  , OCR_UP: 32516           ; Alternate select
+                  , OCR_WAIT: 32514 }       ; Busy
+
+    IMAGE_CURSOR := 2
+    typeOfImageToCopy := IMAGE_CURSOR
+
+    for cursorName, cursorId in systemCursors {
+        plusCursorHandle := DllCall("LoadCursor", UInt, 0, Int, systemCursors["OCR_CROSS"])
+        plusCursorCopy := DllCall("CopyImage", Ptr, plusCursorHandle, UInt, typeOfImageToCopy, Int, 0, Int, 0, UInt, 0)
+        DllCall("SetSystemCursor", Ptr, plusCursorCopy, UInt, cursorId)
+    }
+
     return
 }
 
