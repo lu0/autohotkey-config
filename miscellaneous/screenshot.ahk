@@ -115,11 +115,13 @@ setPlusCursor() {
                   , OCR_UP: 32516           ; Alternate select
                   , OCR_WAIT: 32514 }       ; Busy
 
+    IMAGE_CURSOR := 2
+    typeOfImageToCopy := IMAGE_CURSOR
+
     for cursorName, cursorId in systemCursors {
         plusCursorHandle := DllCall("LoadCursor", UInt, 0, Int, systemCursors["OCR_CROSS"])
-        if (cursorId != OCR_CROSS) {
-            DllCall("SetSystemCursor", Ptr, plusCursorHandle, UInt, cursorId)
-        }
+        plusCursorCopy := DllCall("CopyImage", Ptr, plusCursorHandle, UInt, typeOfImageToCopy, Int, 0, Int, 0, UInt, 0)
+        DllCall("SetSystemCursor", Ptr, plusCursorCopy, UInt, cursorId)
     }
 
     return
