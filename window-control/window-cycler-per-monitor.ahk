@@ -83,9 +83,12 @@ cycleWindows(direction) {
 }
 
 getIsWindowValid(hwnd) {
-    isWindowValid := true
     WinGetTitle, winTitle, % "ahk_id " hwnd
-    If (winTitle = "" or winTitle = "Program Manager" or !hasTaskbar(hwnd))
+    WinGetClass, winClass, % "ahk_id " hwnd
+    isWSLWindow := (winClass = "RAIL_WINDOW")
+
+    isWindowValid := true
+    if (!isWSLWindow and (winTitle = "" or winTitle = "Program Manager" or !hasTaskbar(hwnd)))
         isWindowValid := false
     return isWindowValid
 }
